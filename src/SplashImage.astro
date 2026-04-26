@@ -1,0 +1,77 @@
+---
+import "./styles/global.css";
+
+import { getImage } from "astro:assets";
+
+import SplashImageFullResClient from "./SplashImageFullResClient";
+import SplashImageOptimizedClient from "./SplashImageOptimizedClient";
+import { ProgressiveImage } from "./types";
+
+interface Props {
+  landscape: ProgressiveImage;
+  portrait: ProgressiveImage;
+  alt: string;
+}
+
+const {
+  landscape: { optimizedSrc: landscape, fullResPath: landscapeFullRes },
+  portrait: { optimizedSrc: portrait, fullResPath: portraitFullRes },
+  alt,
+} = Astro.props;
+
+const desktop = await getImage({
+  src: landscape,
+  widths: [800, 1200, 1600, 2400],
+  formats: ["avif", "webp", "jpeg"],
+});
+
+const desktopPlaceholder = await getImage({
+  src: landscape,
+  width: 40,
+  format: "webp",
+  quality: 30,
+});
+
+const mobile = await getImage({
+  src: portrait,
+  widths: [600, 900, 1200, 1800],
+  formats: ["avif", "webp", "jpeg"],
+});
+
+const mobilePlaceholder = await getImage({
+  src: portrait,
+  width: 40,
+  format: "webp",
+  quality: 30,
+});
+
+const desktopSrcSet = desktop.srcSet.attribute;
+const mobileSrcSet = mobile.srcSet.attribute;
+---
+
+<div class="relative h-full min-h-full overflow-hidden">
+  <div class="relative min-h-full h-screen w-screen">
+    <picture>
+      <source srcset={mobilePlaceholder.src} media="(max-width: 999px)" />
+      <img
+        src={desktopPlaceholder.src}
+        alt={alt}
+        loading="eager"
+        decoding="sync"
+        class="absolute inset-0 h-full w-full object-cover scale-105 blur-xl"
+      />
+    </picture>
+
+    <SplashImageOptimizedClient
+      client:only="react"
+      desktopSrcSet={desktopSrcSet}
+      mobileSrcSet={mobileSrcSet}
+    />
+
+    <SplashImageFullResClient
+      client:idle={{ timeout: 3000 }}
+      desktopSrc={landscapeFullRes}
+      mobileSrc={portraitFullRes}
+    />
+  </div>
+</div>

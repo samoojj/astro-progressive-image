@@ -1,0 +1,46 @@
+{
+  "name": "@samoojj/astro-progressive-image",
+  "version": "0.1.0",
+  "description": "",
+  "homepage": "https://github.com/samoojj/astro-progressive-image#readme",
+  "bugs": {
+    "url": "https://github.com/samoojj/astro-progressive-image/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samoojj/astro-progressive-image.git"
+  },
+  "license": "MIT",
+  "author": "samoojj",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "peerDependencies": {
+    "astro": "^6.1.9",
+    "motion": "^12.38.0",
+    "react": "^19.2.4",
+    "@astrojs/react": "^5.0.4",
+    "@tailwindcss/vite": "^4.2.4",
+    "react-dom": "^19.2.5",
+    "tailwindcss": "^4.2.4"
+  },
+  "devDependencies": {
+    "astro": "^6.1.9",
+    "motion": "^12.38.0",
+    "react": "^19.2.5",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@astrojs/react": "^5.0.4",
+    "@tailwindcss/vite": "^4.2.4",
+    "react-dom": "^19.2.5",
+    "tailwindcss": "^4.2.4"
+  },
+  "dependencies": {}
+}
